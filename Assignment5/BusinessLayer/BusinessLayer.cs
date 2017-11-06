@@ -17,14 +17,14 @@ namespace BusinessLayer
         }
 
         #region Standard
-        public IList<Standard> GetAllStandards()
+        public IEnumerable<Standard> GetAllStandards()
         {
-            throw new NotImplementedException();
+            return _standardRepository.GetAll();
         }
 
         public Standard GetStandardByID(int id)
         {
-            throw new NotImplementedException();
+            return _standardRepository.GetById(id);
         }
 
         public Standard GetStandardByName(string name)
@@ -41,9 +41,9 @@ namespace BusinessLayer
         #endregion
 
         #region Student
-        public IList<Student> GetAllStudents()
+        public IEnumerable<Student> GetAllStudents()
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetAll();
         }
 
         public Standard GetStandardByIDWithStudents(int id)
@@ -55,7 +55,7 @@ namespace BusinessLayer
 
         public Student GetStudentByID(int id)
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetById(id);
         }
 
         public Student GetStudentByName(string name)
@@ -67,17 +67,17 @@ namespace BusinessLayer
 
         public void AddStudent(Student student)
         {
-            throw new NotImplementedException();
+            _studentRepository.Insert(student);
         }
 
         public void RemoveStudent(Student student)
         {
-            throw new NotImplementedException();
+            _studentRepository.Delete(student);
         }
 
         public void UpdateStudent(Student student)
         {
-            throw new NotImplementedException();
+            _studentRepository.Update(student);
         }
         #endregion
     }

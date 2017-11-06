@@ -6,7 +6,7 @@ namespace BusinessLayer
     public interface IBusinessLayer
     {
         #region Standard
-        IList<Standard> GetAllStandards();
+        IEnumerable<Standard> GetAllStandards();
 
         Standard GetStandardByID(int id);
 
@@ -16,7 +16,7 @@ namespace BusinessLayer
         #endregion
 
         #region Student
-        IList<Student> GetAllStudents();
+        IEnumerable<Student> GetAllStudents();
         
         Student GetStudentByID(int id);
 

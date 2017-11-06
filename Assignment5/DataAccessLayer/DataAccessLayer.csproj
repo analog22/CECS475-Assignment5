@@ -149,15 +149,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Assignment5\Assignment5.csproj">
-      <Project>{4aff669a-390e-43da-9f6a-90c9ef87cc60}</Project>
-      <Name>Assignment5</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{1e40d8e5-8262-4422-9235-a55dd4f06d7c}</Project>
-      <Name>BusinessLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
