@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Assignment5
+namespace DataAccessLayer
 {
     using System;
     using System.Data.Entity;

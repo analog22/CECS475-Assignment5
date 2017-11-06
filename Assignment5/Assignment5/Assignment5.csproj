@@ -66,68 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Course.cs">
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchoolDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDBModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Standard.cs">
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Student.cs">
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="StudentAddress.cs">
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Teacher.cs">
-      <DependentUpon>SchoolDBModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="SchoolDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SchoolDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="packages.config" />
-    <None Include="SchoolDBModel.edmx.diagram">
-      <DependentUpon>SchoolDBModel.edmx</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SchoolDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SchoolDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SchoolDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>SchoolDBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="SchoolDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolDBModel.edmx</DependentUpon>
-      <LastGenOutput>SchoolDBModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="SchoolDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>SchoolDB.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

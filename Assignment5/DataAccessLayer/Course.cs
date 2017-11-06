@@ -7,27 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Assignment5
+namespace DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Standard
+    public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Standard()
+        public Course()
         {
             this.Students = new HashSet<Student>();
-            this.Teachers = new HashSet<Teacher>();
         }
     
-        public int StandardId { get; set; }
-        public string StandardName { get; set; }
-        public string Description { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
+        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
+        public Nullable<int> TeacherId { get; set; }
     
+        public virtual Teacher Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Teacher> Teachers { get; set; }
     }
 }
