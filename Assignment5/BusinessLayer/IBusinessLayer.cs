@@ -13,6 +13,10 @@ namespace BusinessLayer
         Standard GetStandardByName(string name);
 
         void AddStandard(Standard standard);
+
+        void UpdateStandard(Standard standard);
+
+        void RemoveStandard(Standard standard);
         #endregion
 
         #region Student

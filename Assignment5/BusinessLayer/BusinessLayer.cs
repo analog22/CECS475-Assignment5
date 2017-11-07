@@ -38,6 +38,16 @@ namespace BusinessLayer
         {
             _standardRepository.Insert(standard);
         }
+
+        public void UpdateStandard(Standard standard)
+        {
+            _standardRepository.Update(standard);
+        }
+
+        public void RemoveStandard(Standard standard)
+        {
+            _standardRepository.Delete(standard);
+        }
         #endregion
 
         #region Student
@@ -70,14 +80,14 @@ namespace BusinessLayer
             _studentRepository.Insert(student);
         }
 
-        public void RemoveStudent(Student student)
-        {
-            _studentRepository.Delete(student);
-        }
-
         public void UpdateStudent(Student student)
         {
             _studentRepository.Update(student);
+        }
+
+        public void RemoveStudent(Student student)
+        {
+            _studentRepository.Delete(student);
         }
         #endregion
     }
