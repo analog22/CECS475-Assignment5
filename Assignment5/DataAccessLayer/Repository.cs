@@ -38,7 +38,7 @@ namespace DataAccessLayer
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return dbset.Find(id);
         }
 
         public IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate)

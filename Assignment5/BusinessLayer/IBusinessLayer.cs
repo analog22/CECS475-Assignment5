@@ -32,6 +32,5 @@ namespace BusinessLayer
 
         void RemoveStudent(Student student);
         #endregion
-
     }
 }

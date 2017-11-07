@@ -13,11 +13,14 @@ namespace Assignment5
         private BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
         private IEnumerable<Standard> StandardData;
         private IEnumerable<Student> StudentData;
+        private Standard newStd = new Standard();
+        private Student newStu = new Student();
         private string strID;
         private int id;
         private string name;
+        private int choice;
+        private int max2;
 
-        string[] arr = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11" };
         bool run = true;
 
         static void Main(string[] args)
@@ -30,210 +33,250 @@ namespace Assignment5
         {
             while (run)
             {
-                Console.WriteLine("------- Standard -------");
-                Console.WriteLine("0)  Exit");
-                Console.WriteLine("1)  Add Standard");
-                Console.WriteLine("2)  Update Standard");
-                Console.WriteLine("3)  Remove Standard");
-                Console.WriteLine("4)  Search for Standard by ID");
-                Console.WriteLine("5)  Search for Standard by Name");
-                Console.WriteLine("6)  Get Standard and all Students");
-                Console.WriteLine("------- Student -------");
-                Console.WriteLine("7)  Add Student");
-                Console.WriteLine("8)  Update Student");
-                Console.WriteLine("9)  Remove Student");
-                Console.WriteLine("10) Search for Student by ID");
-                Console.WriteLine("11) Search for Student by Name");
-                Console.WriteLine("12) Get all Students");
-                //Standard newStandard = new Standard();
-                //Student newStudent = new Student();
                 StandardData = bl.GetAllStandards();
                 StudentData = bl.GetAllStudents();
-                string x = Console.ReadLine();
-                while (!arr.Contains(x))
-                {
-                    Console.WriteLine("Invalid input... Try again...");
-                    x = Console.ReadLine();
-                }
-                if (arr.Contains(x))
-                {
-                    Console.WriteLine("Selected: " + x);
 
-                    switch (Convert.ToInt32(x))
-                    {
-                        #region Standard Switch
-                        case 1: // Add
-                            AddStandard();
-                            break;
-                        case 2: // Update
-                            UpdateStandard();
-                            break;
-                        case 3: // Remove
-                            RemoveStandard();
-                            break;
-                        case 4: // Search by ID
-                            SearchStandardID();
-                            break;
-                        case 5: // Search by name
-                            SearchStandardName();
-                            break;
-                        case 6: // Display standard & all students
-                            GetStandardAndStudents();
-                            break;
-                        #endregion
+                DisplayMenu();
+                InputChoice();
 
-                        #region Student Switch
-                        case 7: // Add
-                            break;
-                        case 8: // Update
-                            break;
-                        case 9: // Remove
-                            break;
-                        case 10: // Search by ID
-                            break;
-                        case 11: // Search by name
-                            break;
-                        case 12: // Display all students
-                            break;
-                        case 0: // end
-                            run = false;
-                            break;
-                        default:
-                            Console.WriteLine("Switch statement error...");
-                            break;
-                            #endregion
-                    }
+                Console.WriteLine("Selected: " + choice);
+
+                switch (Convert.ToInt32(choice))
+                {
+                    #region Standard Switch
+                    case 1: // Add
+                        AddStandard();
+                        break;
+                    case 2: // Update
+                        UpdateStandard();
+                        break;
+                    case 3: // Remove
+                        RemoveStandard();
+                        break;
+                    case 4: // Search by ID
+                        SearchStandardID();
+                        break;
+                    case 5: // Search by name
+                        SearchStandardName();
+                        break;
+                    case 6: // Display all standards
+                        GetStandards();
+                        break;
+                    case 7: // Display standard & all students
+                        GetStandardAndStudents();
+                        break;
+                    #endregion
+
+                    #region Student Switch
+                    case 8: // Add
+                        AddStudent();
+                        break;
+                    case 9: // Update
+                        UpdateStudent();
+                        break;
+                    case 10: // Remove
+                        RemoveStudent();
+                        break;
+                    case 11: // Search by ID
+                        SearchStudentID();
+                        break;
+                    case 12: // Search by name
+                        SearchStudentName();
+                        break;
+                    case 13: // Display all students
+                        GetStudents();
+                        break;
+                    case 0: // end
+                        run = false;
+                        break;
+                    default:
+                        Console.WriteLine("Switch statement error...");
+                        break;
+                    #endregion
                 }
             }
         }
+
+        #region Methods
+        public void DisplayMenu()
+        {
+            Console.WriteLine("/ / / / /   Repository Program   / / / / /");
+            Console.WriteLine("------- Standard -------");
+            Console.WriteLine("0)  Exit");
+            Console.WriteLine("1)  Add Standard");
+            Console.WriteLine("2)  Update Standard");
+            Console.WriteLine("3)  Remove Standard");
+            Console.WriteLine("4)  Search for Standard by ID");
+            Console.WriteLine("5)  Search for Standard by Name");
+            Console.WriteLine("6)  Get all Standards");
+            Console.WriteLine("7)  Get Standard and all Students");
+            Console.WriteLine("------- Student -------");
+            Console.WriteLine("8)  Add Student");
+            Console.WriteLine("9)  Update Student");
+            Console.WriteLine("10) Remove Student");
+            Console.WriteLine("11) Search for Student by ID");
+            Console.WriteLine("12) Search for Student by Name");
+            Console.WriteLine("13) Get all Students");
+            Console.WriteLine("\n - Select an option: ");
+        }
+
+        public void InputChoice()
+        {
+            while (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                Console.WriteLine("Please enter a valid number...");
+            }
+            if (choice < 0 || choice > 13)
+            {
+                Console.WriteLine("Please enter a valid choice [0 - 13]...");
+                InputChoice();
+            }
+        }
+
+        public void InputID()
+        {
+            while(!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Please enter a valid number...");
+            }
+        }
+        #endregion
 
         #region Standard Methods
         private void AddStandard()
         {
-            Standard add = new Standard();
-
-            Console.WriteLine("Enter Standard ID: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            add.StandardId = id;
+            Console.WriteLine("--- Add Standard ---");
 
             Console.WriteLine("[optional] Enter Standard Name: ");
             string name = Console.ReadLine();
-            if (name == null)
+            if (name == null || name == "")
             {
                 Console.WriteLine("Standard Name is null!");
             }
             else
             {
-                add.StandardName = name;
+                newStd.StandardName = name;
             }
 
             Console.WriteLine("[optional] Enter Standard Description: ");
             string desc = Console.ReadLine();
-            if (desc == null)
+            if (desc == null || desc == "")
             {
                 Console.WriteLine("Standard Description is null!");
             }
             else
             {
-                add.Description = desc;
+                newStd.Description = desc;
             }
 
-            bl.AddStandard(add);
+            bl.AddStandard(newStd);
         }
 
         private void UpdateStandard()
         {
+            Console.WriteLine("--- Update Standard ---");
+
             Console.WriteLine("Enter Standard ID to modify: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Standard update = (from standard in SchoolDBEntity.schoolDB.Standards
-                            where standard.StandardId == id
-                            select standard).SingleOrDefault();
+            InputID();
+            newStd = bl.GetStandardByID(id);
 
             Console.WriteLine("[optional] Enter Standard Name: ");
             string name = Console.ReadLine();
-            if (name == null)
+            if (name == null || name == "")
             {
                 Console.WriteLine("Standard Name is null!");
             }
             else
             {
-                update.StandardName = name;
+                newStd.StandardName = name;
             }
 
             Console.WriteLine("[optional] Enter Standard Description: ");
             string desc = Console.ReadLine();
-            if (desc == null)
+            if (desc == null || desc == "")
             {
                 Console.WriteLine("Standard Description is null!");
             }
             else
             {
-                update.Description = desc;
+                newStd.Description = desc;
             }
 
-            bl.UpdateStandard(update);
+            bl.UpdateStandard(newStd);
         }
 
         private void RemoveStandard()
         {
-            Console.WriteLine("Enter Standard ID to remove: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Standard remove = (from standard in SchoolDBEntity.schoolDB.Standards
-                        where standard.StandardId == id
-                        select standard).SingleOrDefault();
+            Console.WriteLine("--- Remove Standard ---");
 
-            bl.RemoveStandard(remove);
+            Console.WriteLine("Enter Standard ID to remove: ");
+            InputID();
+            newStd = bl.GetStandardByID(id);
+
+            bl.RemoveStandard(newStd);
         }
 
         private void SearchStandardID()
         {
+            Console.WriteLine("--- Search for Standard by ID ---");
+
             Console.WriteLine("Enter Standard ID to search: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Standard s = bl.GetStandardByID(id);
-            if (s == null)
+            InputID();
+            newStd = bl.GetStandardByID(id);
+            if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", s.StandardId, s.StandardName);
+            Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
         }
 
         private void SearchStandardName()
         {
+            Console.WriteLine("--- Search for Standard by name ---");
+
             Console.WriteLine("Enter Standard Name to search: ");
             name = Console.ReadLine();
-            Standard s = bl.GetStandardByName(name);
-            if (s == null)
+            newStd = bl.GetStandardByName(name);
+            if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", s.StandardId, s.StandardName);
+            Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
+        }
+
+        private void GetStandards()
+        {
+            Console.WriteLine("--- Get all Standards ---");
+            Console.WriteLine("{0, -5}{1, 5}{2, 20}", "ID", "Standard Name", "Description");
+
+            foreach (var s in StandardData)
+            {
+                Console.WriteLine("{0, -5}{1, 5}{2, 20}", s.StandardId, s.StandardName, s.Description);
+            }
         }
 
         private void GetStandardAndStudents()
         {
+            Console.WriteLine("--- Get Standard and all Students ---");
+
             Console.Write("Enter Standard ID: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Standard s = bl.GetStandardByIDWithStudents(id);
-            if (s == null)
+            InputID();
+            newStd = bl.GetStandardByIDWithStudents(id);
+            if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
                 return;
             }
-            else if (s.Students == null || s.Students.Count == 0)
+            else if (newStd.Students == null || newStd.Students.Count == 0)
             {
                 Console.WriteLine("This Standard has no Students!");
                 return;
             }
 
-            Console.WriteLine("\nContaining Students: {0}", s.Students.Count);
-            foreach (Student student in s.Students)
+            Console.WriteLine("\nContaining Students: {0}", newStd.Students.Count);
+            foreach (Student student in newStd.Students)
                 Console.WriteLine("- " + student.StudentName);
         }
         #endregion
@@ -241,47 +284,40 @@ namespace Assignment5
         #region Student Methods
         private void AddStudent()
         {
-            Student add = new Student();
-
-            Console.WriteLine("Enter Standard ID: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            add.StandardId = id;
-
-            Console.WriteLine("[optional] Enter Student ID: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            if (id == null)
-            {
-                Console.WriteLine("Student ID is null!");
-            }
-            else
-            {
-                add.StudentID = id;
-            }
-
+            Console.WriteLine("--- Add Student ---");
+            
             Console.WriteLine("[optional] Enter Student Name: ");
             string name = Console.ReadLine();
-            if (name == null)
+            if (name == null || name =="")
             {
                 Console.WriteLine("Student Name is null!");
             }
             else
             {
-                add.StudentName = name;
+                newStu.StudentName = name;
             }
 
-            bl.AddStudent(add);
+            Console.WriteLine("[optional] Enter Standard ID: ");
+            InputID();
+            if (strID == null || strID == "")
+            {
+                Console.WriteLine("Standard ID is null!");
+            }
+            else
+            {
+                newStu.StandardId = id;
+            }
+
+            bl.AddStudent(newStu);
         }
 
         private void UpdateStudent()
         {
+            Console.WriteLine("--- Update Student ---");
+
             Console.WriteLine("Enter Student ID to modify: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Student update = (from student in SchoolDBEntity.schoolDB.Students
-                               where student.StudentID == id
-                               select student).SingleOrDefault();
+            InputID();
+            newStu = bl.GetStudentByID(id);
 
             Console.WriteLine("[optional] Enter Student Name: ");
             string name = Console.ReadLine();
@@ -291,54 +327,74 @@ namespace Assignment5
             }
             else
             {
-                update.StudentName = name;
+                newStu.StudentName = name;
             }
 
-            bl.UpdateStudent(update);
+            Console.WriteLine("[optional] Enter Standard ID: ");
+            strID = Console.ReadLine();
+            id = Convert.ToInt32(strID);
+            if (strID == null)
+            {
+                Console.WriteLine("Standard ID is null!");
+            }
+            else
+            {
+                newStu.StandardId = id;
+            }
+
+            bl.UpdateStudent(newStu);
         }
 
         private void RemoveStudent()
         {
-            Console.WriteLine("Enter Student ID to remove: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Student remove = (from student in SchoolDBEntity.schoolDB.Students
-                               where student.StudentID == id
-                               select student).SingleOrDefault();
+            Console.WriteLine("--- Remove Student ---");
 
-            bl.RemoveStudent(remove);
+            Console.WriteLine("Enter Student ID to remove: ");
+            InputID();
+            newStu = bl.GetStudentByID(id);
+
+            bl.RemoveStudent(newStu);
         }
 
         private void SearchStudentID()
         {
+            Console.WriteLine("--- Search for Student by ID ---");
+
             Console.WriteLine("Enter Student ID to search: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            Student s = bl.GetStudentByID(id);
-            if (s == null)
+            InputID();
+            newStu = bl.GetStudentByID(id);
+            if (newStu == null)
             {
                 Console.WriteLine("Student not found!");
                 return;
             }
-            Console.WriteLine("Student found: {0}, {1}", s.StudentID, s.StudentName);
+            Console.WriteLine("Student found: {0}, {1}", newStu.StudentID, newStu.StudentName);
         }
 
         private void SearchStudentName()
         {
+            Console.WriteLine("--- Search for Student by name ---");
+
             Console.WriteLine("Enter Student Name to search: ");
             name = Console.ReadLine();
-            Student s = bl.GetStudentByName(name);
-            if (s == null)
+            newStu = bl.GetStudentByName(name);
+            if (newStu == null)
             {
                 Console.WriteLine("Student not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", s.StudentID, s.StudentName);
+            Console.WriteLine("Standard found: {0}, {1}", newStu.StudentID, newStu.StudentName);
         }
 
         private void GetStudents()
         {
-            
+            Console.WriteLine("--- Get all Students ---");
+
+            Console.WriteLine("{0, -5}{1, 5}{2, 20}", "ID", "Student Name", "Standard ID");
+            foreach (var s in StudentData)
+            {
+                Console.WriteLine("{0, -5}{1, 5}{2, 20}", s.StudentID, s.StudentName, s.StandardId);
+            }
         }
         #endregion
     }
