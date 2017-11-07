@@ -74,6 +74,7 @@
     <Compile Include="IStudentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="SchoolDBEntity.cs" />
     <Compile Include="SchoolDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
