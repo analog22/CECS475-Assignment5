@@ -19,7 +19,6 @@ namespace Assignment5
         private int id;
         private string name;
         private int choice;
-        private int max2;
 
         bool run = true;
 
@@ -39,7 +38,7 @@ namespace Assignment5
                 DisplayMenu();
                 InputChoice();
 
-                Console.WriteLine("Selected: " + choice);
+                Console.WriteLine("Selected: " + choice +"\n");
 
                 switch (Convert.ToInt32(choice))
                 {
@@ -87,6 +86,8 @@ namespace Assignment5
                         GetStudents();
                         break;
                     case 0: // end
+                        Console.WriteLine("Press any key to exit...");
+                        Console.ReadKey();
                         run = false;
                         break;
                     default:
@@ -100,8 +101,8 @@ namespace Assignment5
         #region Methods
         public void DisplayMenu()
         {
-            Console.WriteLine("/ / / / /   Repository Program   / / / / /");
-            Console.WriteLine("------- Standard -------");
+            Console.WriteLine("\n\n/ / / / /   Repository Program   / / / / /");
+            Console.WriteLine("[     Standard    ]");
             Console.WriteLine("0)  Exit");
             Console.WriteLine("1)  Add Standard");
             Console.WriteLine("2)  Update Standard");
@@ -110,7 +111,7 @@ namespace Assignment5
             Console.WriteLine("5)  Search for Standard by Name");
             Console.WriteLine("6)  Get all Standards");
             Console.WriteLine("7)  Get Standard and all Students");
-            Console.WriteLine("------- Student -------");
+            Console.WriteLine("[     Student     ]");
             Console.WriteLine("8)  Add Student");
             Console.WriteLine("9)  Update Student");
             Console.WriteLine("10) Remove Student");
@@ -139,6 +140,12 @@ namespace Assignment5
             {
                 Console.WriteLine("Please enter a valid number...");
             }
+        }
+
+        public void Continue()
+        {
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
         }
         #endregion
 
@@ -170,6 +177,9 @@ namespace Assignment5
             }
 
             bl.AddStandard(newStd);
+            Console.WriteLine("Standard has been added!");
+
+            Continue();
         }
 
         private void UpdateStandard()
@@ -180,29 +190,40 @@ namespace Assignment5
             InputID();
             newStd = bl.GetStandardByID(id);
 
-            Console.WriteLine("[optional] Enter Standard Name: ");
-            string name = Console.ReadLine();
-            if (name == null || name == "")
+            if (newStd == null)
             {
-                Console.WriteLine("Standard Name is null!");
+                Console.WriteLine("Standard not found!");
             }
             else
             {
-                newStd.StandardName = name;
+                Console.WriteLine("[optional] Enter Standard Name: ");
+                string name = Console.ReadLine();
+                if (name == null || name == "")
+                {
+                    Console.WriteLine("Standard Name is null!");
+                    return;
+                }
+                else
+                {
+                    newStd.StandardName = name;
+                }
+
+                Console.WriteLine("[optional] Enter Standard Description: ");
+                string desc = Console.ReadLine();
+                if (desc == null || desc == "")
+                {
+                    Console.WriteLine("Standard Description is null!");
+                }
+                else
+                {
+                    newStd.Description = desc;
+                }
+
+                bl.UpdateStandard(newStd);
+                Console.WriteLine("Standard has been updated!");
             }
 
-            Console.WriteLine("[optional] Enter Standard Description: ");
-            string desc = Console.ReadLine();
-            if (desc == null || desc == "")
-            {
-                Console.WriteLine("Standard Description is null!");
-            }
-            else
-            {
-                newStd.Description = desc;
-            }
-
-            bl.UpdateStandard(newStd);
+            Continue();
         }
 
         private void RemoveStandard()
@@ -213,7 +234,18 @@ namespace Assignment5
             InputID();
             newStd = bl.GetStandardByID(id);
 
-            bl.RemoveStandard(newStd);
+            if (newStd == null)
+            {
+                Console.WriteLine("Standard not found!");
+                return;
+            }
+            else
+            {
+                bl.RemoveStandard(newStd);
+                Console.WriteLine("Standard has been removed!");
+            }
+            
+            Continue();
         }
 
         private void SearchStandardID()
@@ -223,12 +255,18 @@ namespace Assignment5
             Console.WriteLine("Enter Standard ID to search: ");
             InputID();
             newStd = bl.GetStandardByID(id);
+
             if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
+            else
+            {
+                Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
+            }
+
+            Continue();
         }
 
         private void SearchStandardName()
@@ -238,12 +276,18 @@ namespace Assignment5
             Console.WriteLine("Enter Standard Name to search: ");
             name = Console.ReadLine();
             newStd = bl.GetStandardByName(name);
+            
             if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
+            else
+            {
+                Console.WriteLine("Standard found: {0}, {1}", newStd.StandardId, newStd.StandardName);
+            }
+
+            Continue();
         }
 
         private void GetStandards()
@@ -255,6 +299,8 @@ namespace Assignment5
             {
                 Console.WriteLine("{0, -5}{1, 5}{2, 20}", s.StandardId, s.StandardName, s.Description);
             }
+
+            Continue();
         }
 
         private void GetStandardAndStudents()
@@ -264,6 +310,7 @@ namespace Assignment5
             Console.Write("Enter Standard ID: ");
             InputID();
             newStd = bl.GetStandardByIDWithStudents(id);
+
             if (newStd == null)
             {
                 Console.WriteLine("Standard not found!");
@@ -274,10 +321,14 @@ namespace Assignment5
                 Console.WriteLine("This Standard has no Students!");
                 return;
             }
+            else
+            {
+                Console.WriteLine("\nContaining Students: {0}", newStd.Students.Count);
+                foreach (Student student in newStd.Students)
+                    Console.WriteLine("- " + student.StudentName);
+            }
 
-            Console.WriteLine("\nContaining Students: {0}", newStd.Students.Count);
-            foreach (Student student in newStd.Students)
-                Console.WriteLine("- " + student.StudentName);
+            Continue();
         }
         #endregion
 
@@ -299,7 +350,7 @@ namespace Assignment5
 
             Console.WriteLine("[optional] Enter Standard ID: ");
             InputID();
-            if (strID == null || strID == "")
+            if (id == null)
             {
                 Console.WriteLine("Standard ID is null!");
             }
@@ -309,6 +360,9 @@ namespace Assignment5
             }
 
             bl.AddStudent(newStu);
+            Console.WriteLine("Student has been added!");
+
+            Continue();
         }
 
         private void UpdateStudent()
@@ -319,30 +373,41 @@ namespace Assignment5
             InputID();
             newStu = bl.GetStudentByID(id);
 
-            Console.WriteLine("[optional] Enter Student Name: ");
-            string name = Console.ReadLine();
-            if (name == null)
+            if (newStu == null)
             {
-                Console.WriteLine("Student Name is null!");
+                Console.WriteLine("Student not found!");
+                return;
             }
             else
             {
-                newStu.StudentName = name;
+                Console.WriteLine("[optional] Enter Student Name: ");
+                string name = Console.ReadLine();
+                if (name == null)
+                {
+                    Console.WriteLine("Student Name is null!");
+                }
+                else
+                {
+                    newStu.StudentName = name;
+                }
+
+                Console.WriteLine("[optional] Enter Standard ID: ");
+                strID = Console.ReadLine();
+                id = Convert.ToInt32(strID);
+                if (strID == null)
+                {
+                    Console.WriteLine("Standard ID is null!");
+                }
+                else
+                {
+                    newStu.StandardId = id;
+                }
+
+                bl.UpdateStudent(newStu);
+                Console.WriteLine("Student has been updated!");
             }
 
-            Console.WriteLine("[optional] Enter Standard ID: ");
-            strID = Console.ReadLine();
-            id = Convert.ToInt32(strID);
-            if (strID == null)
-            {
-                Console.WriteLine("Standard ID is null!");
-            }
-            else
-            {
-                newStu.StandardId = id;
-            }
-
-            bl.UpdateStudent(newStu);
+            Continue();
         }
 
         private void RemoveStudent()
@@ -353,7 +418,18 @@ namespace Assignment5
             InputID();
             newStu = bl.GetStudentByID(id);
 
-            bl.RemoveStudent(newStu);
+            if (newStu == null)
+            {
+                Console.WriteLine("Student not found!");
+                return;
+            }
+            else
+            {
+                bl.RemoveStudent(newStu);
+                Console.WriteLine("Student has been removed!");
+            }
+
+            Continue();
         }
 
         private void SearchStudentID()
@@ -363,12 +439,18 @@ namespace Assignment5
             Console.WriteLine("Enter Student ID to search: ");
             InputID();
             newStu = bl.GetStudentByID(id);
+
             if (newStu == null)
             {
                 Console.WriteLine("Student not found!");
                 return;
             }
-            Console.WriteLine("Student found: {0}, {1}", newStu.StudentID, newStu.StudentName);
+            else
+            {
+                Console.WriteLine("Student found: {0}, {1}", newStu.StudentID, newStu.StudentName);
+            }
+
+            Continue();
         }
 
         private void SearchStudentName()
@@ -378,12 +460,18 @@ namespace Assignment5
             Console.WriteLine("Enter Student Name to search: ");
             name = Console.ReadLine();
             newStu = bl.GetStudentByName(name);
+
             if (newStu == null)
             {
                 Console.WriteLine("Student not found!");
                 return;
             }
-            Console.WriteLine("Standard found: {0}, {1}", newStu.StudentID, newStu.StudentName);
+            else
+            {
+                Console.WriteLine("Standard found: {0}, {1}", newStu.StudentID, newStu.StudentName);
+            }
+
+            Continue();
         }
 
         private void GetStudents()
@@ -395,6 +483,8 @@ namespace Assignment5
             {
                 Console.WriteLine("{0, -5}{1, 5}{2, 20}", s.StudentID, s.StudentName, s.StandardId);
             }
+
+            Continue();
         }
         #endregion
     }
