@@ -101,9 +101,8 @@ namespace Assignment5
         #region Methods
         public void DisplayMenu()
         {
-            Console.WriteLine("\n\n/ / / / /   Repository Program   / / / / /");
-            Console.WriteLine("[     Standard    ]");
-            Console.WriteLine("0)  Exit");
+            Console.WriteLine("\n\n- - - - -  Repository Program  - - - - -");
+            Console.WriteLine("\n[          Standard          ]");
             Console.WriteLine("1)  Add Standard");
             Console.WriteLine("2)  Update Standard");
             Console.WriteLine("3)  Remove Standard");
@@ -111,13 +110,15 @@ namespace Assignment5
             Console.WriteLine("5)  Search for Standard by Name");
             Console.WriteLine("6)  Get all Standards");
             Console.WriteLine("7)  Get Standard and all Students");
-            Console.WriteLine("[     Student     ]");
+            Console.WriteLine("\n[          Student          ]");
             Console.WriteLine("8)  Add Student");
             Console.WriteLine("9)  Update Student");
             Console.WriteLine("10) Remove Student");
             Console.WriteLine("11) Search for Student by ID");
             Console.WriteLine("12) Search for Student by Name");
             Console.WriteLine("13) Get all Students");
+            Console.WriteLine("\n- - - - - - - - - - - - - - - - - - - -");
+            Console.WriteLine("0)  Exit");
             Console.WriteLine("\n - Select an option: ");
         }
 
